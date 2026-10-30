@@ -2615,7 +2615,7 @@ UNICODE_MORPH_MODS
             bindings = <&swap_chord RCTRL CURSOR>;
             layers = <BASE>;
         };
-        // Échap + ⌫ (pouces gauches extérieur + milieu) : sélecteur Cmd+Tab ouvert
+        // Entrée + ⌫ (pouces gauches extérieur + milieu) : sélecteur Cmd+Tab ouvert
         combo_cmd_tab_switcher {
             timeout-ms = <COMBO_FIRING_DECAY>;
             key-positions = <36 37>;
@@ -2629,7 +2629,7 @@ UNICODE_MORPH_MODS
             bindings = <&mo WORLD>;
             layers = <BASE>;
         };
-        // Espace + Entrée : Hyper (Cmd+Option+Ctrl+Maj) pour un seul raccourci
+        // Espace + Échap (pouces droits milieu + extérieur) : Hyper (Cmd+Option+Ctrl+Maj) pour un seul raccourci
         combo_sticky_hyper {
             timeout-ms = <COMBO_FIRING_DECAY>;
             key-positions = <40 41>;
@@ -2649,7 +2649,7 @@ UNICODE_MORPH_MODS
             bindings = <&sk LSHFT>;
             layers = <BASE>;
         };
-        // Échap + F / Entrée + J : mot en majuscules
+        // Entrée + F / Échap + J : mot en majuscules
         combo_caps_word_left {
             timeout-ms = <COMBO_FIRING_DECAY>;
             key-positions = <36 16>;
@@ -2673,7 +2673,7 @@ UNICODE_MORPH_MODS
                 &kp GRAVE   &kp Q            &hm RING2_MOD W  &kp E            &kp R            &kp T    &kp Y  &kp U            &kp I            &hm RING2_MOD O  &kp P               &kp MINUS
                 &caps_word  &hm PINKY_MOD A  &hm RING1_MOD S  &hm MIDDY_MOD D  &hs INDEX_MOD F  &kp G    &kp H  &hs INDEX_MOD J  &hm MIDDY_MOD K  &hm RING1_MOD L  &hm PINKY_MOD SEMI  &kp SQT
                 &sk LSHFT   &kp Z            &kp X            &kp C            &kp V            &kp B    &kp N  &kp M            &kp COMMA        &kp DOT          &kp FSLH            &sk RSHFT
-                                                              &thumb FUNCTION ESC  &thumb_cur CURSOR BSPC  &thumb NUMBER LC(TAB)    &thumb MOUSE TAB  &space SYMBOL SPACE  &thumb SYSTEM RET
+                                                              &thumb FUNCTION RET  &thumb_cur CURSOR BSPC  &thumb NUMBER LC(TAB)    &thumb MOUSE TAB  &space SYMBOL SPACE  &thumb SYSTEM ESC
             >;
         };
 
