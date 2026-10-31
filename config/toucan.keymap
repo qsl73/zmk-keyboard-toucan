@@ -60,7 +60,7 @@
 #define NUMBER   2
 #define FUNCTION 3
 #define SYMBOL   4
-#define SHORTCUTS 5
+#define MOUSE    5
 #define SYSTEM   6
 #define WORLD    7
 
@@ -2615,7 +2615,7 @@ UNICODE_MORPH_MODS
             bindings = <&swap_chord RCTRL CURSOR>;
             layers = <BASE>;
         };
-        // Entrée + ⌫ (pouces gauches extérieur + milieu) : sélecteur Cmd+Tab ouvert
+        // Échap + ⌫ (pouces gauches extérieur + milieu) : sélecteur Cmd+Tab ouvert
         combo_cmd_tab_switcher {
             timeout-ms = <COMBO_FIRING_DECAY>;
             key-positions = <36 37>;
@@ -2629,7 +2629,7 @@ UNICODE_MORPH_MODS
             bindings = <&mo WORLD>;
             layers = <BASE>;
         };
-        // Espace + Échap (pouces droits milieu + extérieur) : Hyper (Cmd+Option+Ctrl+Maj) pour un seul raccourci
+        // Espace + Entrée : Hyper (Cmd+Option+Ctrl+Maj) pour un seul raccourci
         combo_sticky_hyper {
             timeout-ms = <COMBO_FIRING_DECAY>;
             key-positions = <40 41>;
@@ -2649,7 +2649,7 @@ UNICODE_MORPH_MODS
             bindings = <&sk LSHFT>;
             layers = <BASE>;
         };
-        // Entrée + F / Échap + J : mot en majuscules
+        // Échap + F / Entrée + J : mot en majuscules
         combo_caps_word_left {
             timeout-ms = <COMBO_FIRING_DECAY>;
             key-positions = <36 16>;
@@ -2673,7 +2673,7 @@ UNICODE_MORPH_MODS
                 &kp GRAVE   &kp Q            &hm RING2_MOD W  &kp E            &kp R            &kp T    &kp Y  &kp U            &kp I            &hm RING2_MOD O  &kp P               &kp MINUS
                 &caps_word  &hm PINKY_MOD A  &hm RING1_MOD S  &hm MIDDY_MOD D  &hs INDEX_MOD F  &kp G    &kp H  &hs INDEX_MOD J  &hm MIDDY_MOD K  &hm RING1_MOD L  &hm PINKY_MOD SEMI  &kp SQT
                 &sk LSHFT   &kp Z            &kp X            &kp C            &kp V            &kp B    &kp N  &kp M            &kp COMMA        &kp DOT          &kp FSLH            &sk RSHFT
-                                                              &thumb FUNCTION RET  &thumb_cur CURSOR BSPC  &thumb NUMBER LC(TAB)    &thumb SHORTCUTS TAB  &space SYMBOL SPACE  &thumb SYSTEM ESC
+                                                              &thumb FUNCTION ESC  &thumb_cur CURSOR BSPC  &thumb NUMBER LC(TAB)    &thumb MOUSE TAB  &space SYMBOL SPACE  &thumb SYSTEM RET
             >;
         };
 
@@ -2717,13 +2717,13 @@ UNICODE_MORPH_MODS
             >;
         };
 
-        layer_shortcuts {
-            display-name = "RACC";
+        layer_mouse {
+            display-name = "MOUSE";
             bindings = <
-                &kp LG(LA(ESC))    &kp LG(Q)     &kp LG(W)   &kp LG(LS(T))  &kp LG(R)      &kp LG(T)        &kp LG(N)  &kp LG(MINUS)  &kp LG(N0)     &kp LG(EQUAL)  &kp LG(LS(N4))  &kp LG(LS(N5))
-                &kp _LOCK          &kp LC(LEFT)  &kp LC(UP)  &kp LC(DOWN)   &kp LC(RIGHT)  &kp LG(SPACE)    &kp LG(S)  &kp INDEX_MOD  &kp MIDDY_MOD  &kp RING1_MOD  &kp PINKY_MOD   &kp LG(LS(N3))
-                &kp LC(LG(SPACE))  &kp LG(M)     &kp LG(H)   &kp LC(LG(F))  &kp LG(GRAVE)  &kp LG(COMMA)    &none      &none          &none          &none          &none           &none
-                                                             &none  &none  &none    &none  &none  &none
+                &none  &none     &msc SCRL_LEFT  &mmv MOVE_UP    &msc SCRL_RIGHT  &none    &mkp MCLK  &kp INDEX_MOD   &kp MIDDY_MOD  &kp RING1_MOD   &kp PINKY_MOD    &none
+                &none  &none     &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none    &mkp LCLK  &mmv MOVE_LEFT  &mmv MOVE_UP   &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none
+                &none  &mkp MB4  &mkp MB5        &msc SCRL_DOWN  &msc SCRL_UP     &none    &mkp RCLK  &msc SCRL_LEFT  &msc SCRL_UP   &msc SCRL_DOWN  &msc SCRL_RIGHT  &none
+                                                 &mkp MCLK  &mkp LCLK  &mkp RCLK    &none  &none  &none
             >;
         };
 
