@@ -10,4 +10,6 @@ struct battery_status_state {
 #endif
 };
 
+void draw_battery_gauge(lv_obj_t *canvas, lv_coord_t x, char side, uint8_t level, bool known,
+                        bool charging);
 void draw_battery_status(lv_obj_t *canvas, const struct status_state *state);

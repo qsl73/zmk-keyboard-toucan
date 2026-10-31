@@ -42,6 +42,10 @@ if !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
 config NICE_VIEW_WIDGET_STATUS
     select ZMK_WPM
 
+# Caps Lock state sent by the computer, shown on the screen
+config ZMK_HID_INDICATORS
+    default y
+
 endif # !ZMK_SPLIT || ZMK_SPLIT_ROLE_CENTRAL
 
 endif # SHIELD_NICE_VIEW_GEM

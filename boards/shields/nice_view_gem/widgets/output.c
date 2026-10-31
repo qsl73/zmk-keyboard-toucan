@@ -1,78 +1,39 @@
 #include <zephyr/kernel.h>
+#include <stdio.h>
 #include "output.h"
 #include "../assets/custom_fonts.h"
 
-LV_IMG_DECLARE(bt_no_signal);
-LV_IMG_DECLARE(bt_unbonded);
-LV_IMG_DECLARE(bt);
-LV_IMG_DECLARE(usb);
-
-#if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
-static void draw_usb_connected(lv_obj_t *canvas) {
-    lv_draw_label_dsc_t label_dsc;
-    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &quinquefive_8, LV_TEXT_ALIGN_LEFT);
-    lv_canvas_draw_text(canvas, 12, 140, SCREEN_WIDTH-8, &label_dsc, "USB");
-}
-#endif
-
-static void draw_ble_disconnected(lv_obj_t *canvas) {
-    lv_draw_label_dsc_t label_dsc;
-    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &quinquefive_8, LV_TEXT_ALIGN_LEFT);
-    lv_canvas_draw_text(canvas, 12, 140, SCREEN_WIDTH-8, &label_dsc, "NULL");
-}
-
-static void draw_ble_connected(lv_obj_t *canvas) {
-    lv_draw_label_dsc_t label_dsc;
-    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &quinquefive_8, LV_TEXT_ALIGN_LEFT);
-    lv_canvas_draw_text(canvas, 12, 140, SCREEN_WIDTH-8, &label_dsc, "BLE");
-}
-
+/*
+ * Bottom-left: where the keystrokes go.
+ *   "USB"        sent over the cable
+ *   "BT2 OK"     Bluetooth profile 2, connected
+ *   "BT2 ..."    profile 2 paired, but the computer is not connected
+ *   "BT2 LIBRE"  profile 2 has no paired computer (ready to pair)
+ */
 void draw_output_status(lv_obj_t *canvas, const struct status_state *state) {
-    switch (state->selected_endpoint.transport) {
-        case ZMK_TRANSPORT_USB:
-            draw_usb_connected(canvas);
-            break;
-        case ZMK_TRANSPORT_BLE:
-            draw_ble_connected(canvas);
-            break;
-        default:
-            draw_ble_disconnected(canvas);
-            break;
-    }
-
-    /*
-    lv_draw_label_dsc_t label_dsc;
-    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lcd_phone, LV_TEXT_ALIGN_LEFT);
-    lv_canvas_draw_text(canvas, 0, 1, 25, &label_dsc, "SIG");
-
-    lv_draw_rect_dsc_t rect_white_dsc;
-    init_rect_dsc(&rect_white_dsc, LVGL_FOREGROUND);
-    lv_canvas_draw_rect(canvas, 43, 0, 24, 15, &rect_white_dsc);
+    char text[24];
 
 #if !IS_ENABLED(CONFIG_ZMK_SPLIT) || IS_ENABLED(CONFIG_ZMK_SPLIT_ROLE_CENTRAL)
     switch (state->selected_endpoint.transport) {
     case ZMK_TRANSPORT_USB:
-        draw_usb_connected(canvas);
+        snprintf(text, sizeof(text), "USB");
         break;
-
     case ZMK_TRANSPORT_BLE:
-        if (state->active_profile_bonded) {
-            if (state->active_profile_connected) {
-                draw_ble_connected(canvas);
-            } else {
-                draw_ble_disconnected(canvas);
-            }
+        if (!state->active_profile_bonded) {
+            snprintf(text, sizeof(text), "BT%d LIBRE", state->active_profile_index + 1);
+        } else if (state->active_profile_connected) {
+            snprintf(text, sizeof(text), "BT%d OK", state->active_profile_index + 1);
         } else {
-            draw_ble_unbonded(canvas);
+            snprintf(text, sizeof(text), "BT%d ...", state->active_profile_index + 1);
         }
+        break;
+    default:
+        snprintf(text, sizeof(text), "AUCUNE");
         break;
     }
 #else
-    if (state->connected) {
-        draw_ble_connected(canvas);
-    } else {
-        draw_ble_disconnected(canvas);
-    }
+    snprintf(text, sizeof(text), state->connected ? "OK" : "...");
 #endif
-*/
+
+    draw_text(canvas, 2, 150, 90, &quinquefive_8, LV_TEXT_ALIGN_LEFT, LVGL_FOREGROUND, text);
 }

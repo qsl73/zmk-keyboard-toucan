@@ -3,11 +3,15 @@
 
 LV_IMG_DECLARE(profiles);
 
+/* Five Bluetooth profiles in the bottom-right corner, the active one filled */
+#define PROFILES_X 94
+#define PROFILES_Y 152
+
 static void draw_inactive_profiles(lv_obj_t *canvas, const struct status_state *state) {
     lv_draw_img_dsc_t img_dsc;
     lv_draw_img_dsc_init(&img_dsc);
 
-    lv_canvas_draw_img(canvas, 85, 143, &profiles, &img_dsc);
+    lv_canvas_draw_img(canvas, PROFILES_X, PROFILES_Y, &profiles, &img_dsc);
 }
 
 static void draw_active_profile(lv_obj_t *canvas, const struct status_state *state) {
@@ -16,7 +20,7 @@ static void draw_active_profile(lv_obj_t *canvas, const struct status_state *sta
 
     int offset = state->active_profile_index * 10;
 
-    lv_canvas_draw_rect(canvas, 85 + offset, 143, 8, 8, &rect_white_dsc);
+    lv_canvas_draw_rect(canvas, PROFILES_X + offset, PROFILES_Y, 8, 8, &rect_white_dsc);
 }
 
 void draw_profile_status(lv_obj_t *canvas, const struct status_state *state) {
